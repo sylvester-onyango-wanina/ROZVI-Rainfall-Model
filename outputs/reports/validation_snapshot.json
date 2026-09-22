@@ -1,0 +1,15 @@
+{
+  "n_stations": 8,
+  "rx1day_vs_station_annual": {
+    "n": 8,
+    "pearson_r": 0.9814345475662162,
+    "pearson_p": 1.5775739998729056e-05,
+    "spearman_r": 0.9285714285714287,
+    "spearman_p": 0.0008629681828999767,
+    "rmse": 13.108162871613949,
+    "mae": 12.97423461442731,
+    "r2": -23.239844804549207,
+    "bias": 12.97423461442731
+  },
+  "note": "Synthetic data only \u2014 metrics are illustrative, not scientific validation"
+}

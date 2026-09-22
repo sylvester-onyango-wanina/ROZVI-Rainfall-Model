@@ -1,0 +1,158 @@
+# ============================================================================
+# Zimbabwe Asset-Level Flood Hazard & Risk Model — Configuration
+# All scientific parameters live here. No hardcoded values in src/.
+# ============================================================================
+
+project:
+  name: "zimbabwe_flood_risk"
+  version: "0.1.0-mvp"
+  random_seed: 42
+  crs: "EPSG:4326"
+  metric_crs: "EPSG:3857"          # or a local UTM zone for higher accuracy
+  nodata_value: -9999.0
+
+study_area:
+  # Path to AOI boundary (GeoJSON / Shapefile). Change this to retarget.
+  boundary_path: "data/raw/study_area.geojson"
+  # Target resolution for national screening (metres). Match coarsest informative input.
+  target_resolution_m: 90
+  # Country code for automated data acquisition helpers
+  country_iso3: "ZWE"
+
+time:
+  start_date: "1981-01-01"
+  end_date: "2024-12-31"
+  baseline_period: ["1991-01-01", "2020-12-31"]
+
+# ----------------------------------------------------------------------------
+# Rainfall & extremes
+# ----------------------------------------------------------------------------
+rainfall:
+  products:
+    - name: "CHIRPS"
+      enabled: true
+      path_or_url: null          # set after download
+    - name: "ERA5-Land"
+      enabled: true
+      path_or_url: null
+    - name: "IMERG"
+      enabled: false
+      path_or_url: null
+  station_data_path: "data/validation/stations.csv"
+  extreme_indices:
+    - Rx1day
+    - Rx5day
+    - R95p
+    - R99p
+    - R10mm
+    - R20mm
+    - SDII
+    - CDD
+    - CWD
+  return_periods_years: [2, 5, 10, 20, 50, 100, 200]
+  extreme_value_method: "gev"     # gev | gpd | empirical
+  min_years_for_extremes: 20
+
+bias_correction:
+  method: "quantile_mapping"      # linear_scaling | quantile_mapping | empirical_qm
+  reference: "stations"
+  validation_holdout_fraction: 0.25
+  spatial_block_cv: true
+
+# ----------------------------------------------------------------------------
+# Terrain & hydrology
+# ----------------------------------------------------------------------------
+terrain:
+  dem_path: "data/raw/dem.tif"           # prefer FABDEM or COP-DEM GLO-30
+  preferred_dem: "FABDEM"                # documentation only
+  hydrography_path: null                 # HydroSHEDS / MERIT Hydro / OSM
+  condition_dem: true
+  sink_fill: true
+
+hydrology:
+  method: "scs_cn"                       # scs_cn | rational | hand_only
+  curve_number:
+    landcover_path: null                 # ESA WorldCover
+    soil_path: null                      # SoilGrids / HYSOGs
+    default_cn: 75                       # fallback if layers missing
+  antecedent_moisture: "II"              # I | II | III
+  flow_direction_method: "d8"
+
+inundation:
+  method: "hand"                         # hand | flood_fill | simple_depth
+  hand_threshold_m: [0.5, 1.0, 2.0, 5.0] # example depth classes
+  national_resolution_m: 90
+  local_resolution_m: 30
+
+# ----------------------------------------------------------------------------
+# Exposure & vulnerability
+# ----------------------------------------------------------------------------
+exposure:
+  buildings_path: null                   # OSM / Microsoft footprints
+  roads_path: null
+  infrastructure_path: null
+  user_assets_path: null
+  road_segment_length_m: 2000
+  min_segment_length_m: 500
+
+vulnerability:
+  # Depth-damage curves are literature-based; replace with local surveys when available
+  source: "literature_default"
+  depth_damage_table: "config/depth_damage_default.csv"  # optional external table
+
+# ----------------------------------------------------------------------------
+# Risk & scenarios
+# ----------------------------------------------------------------------------
+risk:
+  equation: "hazard_x_exposure_x_vulnerability"
+  client_score_scale: [1, 10]
+  client_score_method: "calibrated_bands"  # never arbitrary weights
+
+scenarios:
+  historical: true
+  current: true
+  future:
+    enabled: false
+    ssps: ["SSP2-4.5", "SSP5-8.5"]
+    horizon_years: [2050, 2080]
+
+# ----------------------------------------------------------------------------
+# Uncertainty & validation
+# ----------------------------------------------------------------------------
+uncertainty:
+  monte_carlo_iterations: 100
+  rainfall_noise_sigma: 0.10
+  dem_vertical_error_m: 2.0
+  report_confidence: true
+
+validation:
+  metrics_continuous: ["pearson", "spearman", "rmse", "mae", "kge", "nse"]
+  metrics_classification: ["pod", "far", "csi", "bias_ratio"]
+  independent_holdout: true
+  spatial_block_size_km: 50
+
+# ----------------------------------------------------------------------------
+# Paths
+# ----------------------------------------------------------------------------
+paths:
+  raw_dir: "data/raw"
+  processed_dir: "data/processed"
+  validation_dir: "data/validation"
+  output_raster_dir: "outputs/rasters"
+  output_stats_dir: "outputs/statistics"
+  output_fig_dir: "outputs/figures"
+  output_report_dir: "outputs/reports"
+  output_asset_dir: "outputs/assets"
+  log_dir: "outputs/logs"
+
+# ----------------------------------------------------------------------------
+# Logging & runtime
+# ----------------------------------------------------------------------------
+logging:
+  level: "INFO"
+  file: "outputs/logs/run.log"
+
+runtime:
+  n_jobs: -1
+  use_dask: false
+  chunk_size: 512

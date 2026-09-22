@@ -1,0 +1,22 @@
+{
+"type": "FeatureCollection",
+"name": "buildings",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
+"features": [
+{ "type": "Feature", "properties": { "asset_id": "BLD_0000", "asset_type": "commercial" }, "geometry": { "type": "Point", "coordinates": [ 25.11, -17.26 ] } },
+{ "type": "Feature", "properties": { "asset_id": "BLD_0001", "asset_type": "residential" }, "geometry": { "type": "Point", "coordinates": [ 25.01, -17.33 ] } },
+{ "type": "Feature", "properties": { "asset_id": "BLD_0002", "asset_type": "residential" }, "geometry": { "type": "Point", "coordinates": [ 25.3, -17.37 ] } },
+{ "type": "Feature", "properties": { "asset_id": "BLD_0003", "asset_type": "commercial" }, "geometry": { "type": "Point", "coordinates": [ 25.07, -17.26 ] } },
+{ "type": "Feature", "properties": { "asset_id": "BLD_0004", "asset_type": "residential" }, "geometry": { "type": "Point", "coordinates": [ 25.09, -17.24 ] } },
+{ "type": "Feature", "properties": { "asset_id": "BLD_0005", "asset_type": "residential" }, "geometry": { "type": "Point", "coordinates": [ 25.32, -17.33 ] } },
+{ "type": "Feature", "properties": { "asset_id": "BLD_0006", "asset_type": "commercial" }, "geometry": { "type": "Point", "coordinates": [ 25.35, -17.31 ] } },
+{ "type": "Feature", "properties": { "asset_id": "BLD_0007", "asset_type": "residential" }, "geometry": { "type": "Point", "coordinates": [ 25.01, -17.31 ] } },
+{ "type": "Feature", "properties": { "asset_id": "BLD_0008", "asset_type": "residential" }, "geometry": { "type": "Point", "coordinates": [ 25.3, -17.22 ] } },
+{ "type": "Feature", "properties": { "asset_id": "BLD_0009", "asset_type": "commercial" }, "geometry": { "type": "Point", "coordinates": [ 25.21, -17.17 ] } },
+{ "type": "Feature", "properties": { "asset_id": "BLD_0010", "asset_type": "residential" }, "geometry": { "type": "Point", "coordinates": [ 25.06, -17.19 ] } },
+{ "type": "Feature", "properties": { "asset_id": "BLD_0011", "asset_type": "residential" }, "geometry": { "type": "Point", "coordinates": [ 25.37, -17.09 ] } },
+{ "type": "Feature", "properties": { "asset_id": "BLD_0012", "asset_type": "commercial" }, "geometry": { "type": "Point", "coordinates": [ 25.21, -17.2 ] } },
+{ "type": "Feature", "properties": { "asset_id": "BLD_0013", "asset_type": "residential" }, "geometry": { "type": "Point", "coordinates": [ 25.07, -17.38 ] } },
+{ "type": "Feature", "properties": { "asset_id": "BLD_0014", "asset_type": "residential" }, "geometry": { "type": "Point", "coordinates": [ 25.38, -17.04 ] } }
+]
+}
