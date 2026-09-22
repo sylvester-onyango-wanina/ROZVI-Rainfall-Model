@@ -19,7 +19,7 @@
 ## Quick start
 
 ```bash
-cd zimbabwe_flood_risk
+cd D:/ROZVI/zimbabwe_flood_risk
 python -m venv venv
 source venv/bin/activate          # Windows: venv\Scripts\activate
 pip install -r requirements.txt
@@ -31,7 +31,7 @@ python main.py --config config/config.yaml --generate-synthetic-data
 Outputs appear under `outputs/`:
 
 - `rasters/` — indicative flood depth, Rx1day, HAND proxy, runoff
-- `assets/asset_risk.gpkg` and `.csv` — per-asset depth, damage fraction, risk score, confidence, explanation
+- `assets/asset_risk.gpkg` and `.csv` — per-asset depth, damage fraction, risk score, confidence, explanation 
 - `reports/validation_snapshot.json`
 
 ## Project layout
@@ -82,10 +82,6 @@ zimbabwe_flood_risk/
 
 ## Licence & citation
 
-This scaffold is provided for research and development.  
-When using any component in a publication or commercial product, cite the underlying scientific sources (ETCCDI, SCS-CN, HAND literature, DEM providers, etc.) and clearly state the limitations of the screening methods.
+cite the underlying scientific sources (ETCCDI, SCS-CN, HAND literature, DEM providers, etc.) .
 
-## Relationship to the earlier rainfall susceptibility model
 
-The previous `rainfall_model` project is retained as the conceptual ancestor for the rainfall-index engine.  
-All weighted-overlay susceptibility, AHP and Random-Forest weighting logic has been **removed** from the critical path; those techniques may still be used as optional diagnostics but are no longer presented as flood hazard or risk.
